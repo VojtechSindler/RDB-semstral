@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="groupID" />
+          </Key>
+          <Property Name="groupID" Type="int" Nullable="false" />
+          <Property Name="descriptionGroup" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Machines">
+          <Key>
+            <PropertyRef Name="machineID" />
+          </Key>
+          <Property Name="machineID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="descriptionMachine" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="machineAccuracy" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RDB_Semestralka.dbo.Measurement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="time" />
+            <PropertyRef Name="pointID" />
+            <PropertyRef Name="X" />
+            <PropertyRef Name="Y" />
+            <PropertyRef Name="machineID" />
+            <PropertyRef Name="groupID" />
+          </Key>
+          <Property Name="time" Type="datetime" Nullable="false" />
+          <Property Name="pointID" Type="int" Nullable="false" />
+          <Property Name="X" Type="float" Nullable="false" />
+          <Property Name="Y" Type="float" Nullable="false" />
+          <Property Name="machineID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="groupID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Points">
+          <Key>
+            <PropertyRef Name="pointID" />
+            <PropertyRef Name="X" />
+            <PropertyRef Name="Y" />
+          </Key>
+          <Property Name="pointID" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="X" Type="float" Nullable="false" />
+          <Property Name="Y" Type="float" Nullable="false" />
+          <Property Name="value1" Type="float" Nullable="false" />
+          <Property Name="value2" Type="float" Nullable="false" />
+          <Property Name="accuracy" Type="float" Nullable="false" />
+          <Property Name="variableID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Variables">
+          <Key>
+            <PropertyRef Name="variableID" />
+          </Key>
+          <Property Name="variableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RDB_Semestralka.dbo.Multiple_data_select' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Multiple_data_select">
+          <Key>
+            <PropertyRef Name="time" />
+            <PropertyRef Name="pointID" />
+            <PropertyRef Name="description" />
+            <PropertyRef Name="X" />
+            <PropertyRef Name="Y" />
+            <PropertyRef Name="value1" />
+            <PropertyRef Name="value2" />
+            <PropertyRef Name="PointAccuracy" />
+            <PropertyRef Name="variableID" />
+            <PropertyRef Name="variableName" />
+            <PropertyRef Name="machineID" />
+            <PropertyRef Name="descriptionMachine" />
+            <PropertyRef Name="machineAccuracy" />
+            <PropertyRef Name="groupID" />
+            <PropertyRef Name="descriptionGroup" />
+          </Key>
+          <Property Name="time" Type="datetime" Nullable="false" />
+          <Property Name="pointID" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="X" Type="float" Nullable="false" />
+          <Property Name="Y" Type="float" Nullable="false" />
+          <Property Name="value1" Type="float" Nullable="false" />
+          <Property Name="value2" Type="float" Nullable="false" />
+          <Property Name="PointAccuracy" Type="float" Nullable="false" />
+          <Property Name="variableID" Type="int" Nullable="false" />
+          <Property Name="variableName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="machineID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="descriptionMachine" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="machineAccuracy" Type="float" Nullable="false" />
+          <Property Name="groupID" Type="int" Nullable="false" />
+          <Property Name="descriptionGroup" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Measureme__group__1A14E395">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="groupID" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="groupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measureme__machi__1920BF5C">
+          <End Role="Machines" Type="Self.Machines" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Machines">
+              <PropertyRef Name="machineID" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="machineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measurement__182C9B23">
+          <End Role="Points" Type="Self.Points" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Points">
+              <PropertyRef Name="pointID" />
+              <PropertyRef Name="X" />
+              <PropertyRef Name="Y" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="pointID" />
+              <PropertyRef Name="X" />
+              <PropertyRef Name="Y" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Points__variable__164452B1">
+          <End Role="Variables" Type="Self.Variables" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Points" Type="Self.Points" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Variables">
+              <PropertyRef Name="variableID" />
+            </Principal>
+            <Dependent Role="Points">
+              <PropertyRef Name="variableID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="savefile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="filePath" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Machines" EntityType="Self.Machines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Points" EntityType="Self.Points" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Variables" EntityType="Self.Variables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Measurement" EntityType="Self.Measurement" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Measurement].[time] AS [time], 
+    [Measurement].[pointID] AS [pointID], 
+    [Measurement].[X] AS [X], 
+    [Measurement].[Y] AS [Y], 
+    [Measurement].[machineID] AS [machineID], 
+    [Measurement].[groupID] AS [groupID]
+    FROM [dbo].[Measurement] AS [Measurement]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Multiple_data_select" EntityType="Self.Multiple_data_select" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Multiple_data_select].[time] AS [time], 
+    [Multiple_data_select].[pointID] AS [pointID], 
+    [Multiple_data_select].[description] AS [description], 
+    [Multiple_data_select].[X] AS [X], 
+    [Multiple_data_select].[Y] AS [Y], 
+    [Multiple_data_select].[value1] AS [value1], 
+    [Multiple_data_select].[value2] AS [value2], 
+    [Multiple_data_select].[PointAccuracy] AS [PointAccuracy], 
+    [Multiple_data_select].[variableID] AS [variableID], 
+    [Multiple_data_select].[variableName] AS [variableName], 
+    [Multiple_data_select].[machineID] AS [machineID], 
+    [Multiple_data_select].[descriptionMachine] AS [descriptionMachine], 
+    [Multiple_data_select].[machineAccuracy] AS [machineAccuracy], 
+    [Multiple_data_select].[groupID] AS [groupID], 
+    [Multiple_data_select].[descriptionGroup] AS [descriptionGroup]
+    FROM [dbo].[Multiple_data_select] AS [Multiple_data_select]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Measureme__group__1A14E395" Association="Self.FK__Measureme__group__1A14E395">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Measurement" EntitySet="Measurement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measureme__machi__1920BF5C" Association="Self.FK__Measureme__machi__1920BF5C">
+            <End Role="Machines" EntitySet="Machines" />
+            <End Role="Measurement" EntitySet="Measurement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measurement__182C9B23" Association="Self.FK__Measurement__182C9B23">
+            <End Role="Points" EntitySet="Points" />
+            <End Role="Measurement" EntitySet="Measurement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Points__variable__164452B1" Association="Self.FK__Points__variable__164452B1">
+            <End Role="Variables" EntitySet="Variables" />
+            <End Role="Points" EntitySet="Points" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="groupID" />
+          </Key>
+          <Property Name="groupID" Type="Int32" Nullable="false" />
+          <Property Name="descriptionGroup" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Measurement" Relationship="Self.FK__Measureme__group__1A14E395" FromRole="Groups" ToRole="Measurement" />
+        </EntityType>
+        <EntityType Name="Machines">
+          <Key>
+            <PropertyRef Name="machineID" />
+          </Key>
+          <Property Name="machineID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="descriptionMachine" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="machineAccuracy" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Measurement" Relationship="Self.FK__Measureme__machi__1920BF5C" FromRole="Machines" ToRole="Measurement" />
+        </EntityType>
+        <EntityType Name="Points">
+          <Key>
+            <PropertyRef Name="pointID" />
+            <PropertyRef Name="X" />
+            <PropertyRef Name="Y" />
+          </Key>
+          <Property Name="pointID" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="X" Type="Double" Nullable="false" />
+          <Property Name="Y" Type="Double" Nullable="false" />
+          <Property Name="value1" Type="Double" Nullable="false" />
+          <Property Name="value2" Type="Double" Nullable="false" />
+          <Property Name="accuracy" Type="Double" Nullable="false" />
+          <Property Name="variableID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Measurement" Relationship="Self.FK__Measurement__182C9B23" FromRole="Points" ToRole="Measurement" />
+          <NavigationProperty Name="Variables" Relationship="Self.FK__Points__variable__164452B1" FromRole="Points" ToRole="Variables" />
+        </EntityType>
+        <EntityType Name="Variables">
+          <Key>
+            <PropertyRef Name="variableID" />
+          </Key>
+          <Property Name="variableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Points" Relationship="Self.FK__Points__variable__164452B1" FromRole="Variables" ToRole="Points" />
+        </EntityType>
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="time" />
+            <PropertyRef Name="pointID" />
+            <PropertyRef Name="X" />
+            <PropertyRef Name="Y" />
+            <PropertyRef Name="machineID" />
+            <PropertyRef Name="groupID" />
+          </Key>
+          <Property Name="time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="pointID" Type="Int32" Nullable="false" />
+          <Property Name="X" Type="Double" Nullable="false" />
+          <Property Name="Y" Type="Double" Nullable="false" />
+          <Property Name="machineID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="groupID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK__Measureme__group__1A14E395" FromRole="Measurement" ToRole="Groups" />
+          <NavigationProperty Name="Machines" Relationship="Self.FK__Measureme__machi__1920BF5C" FromRole="Measurement" ToRole="Machines" />
+          <NavigationProperty Name="Points" Relationship="Self.FK__Measurement__182C9B23" FromRole="Measurement" ToRole="Points" />
+        </EntityType>
+        <EntityType Name="Multiple_data_select">
+          <Key>
+            <PropertyRef Name="time" />
+            <PropertyRef Name="pointID" />
+            <PropertyRef Name="description" />
+            <PropertyRef Name="X" />
+            <PropertyRef Name="Y" />
+            <PropertyRef Name="value1" />
+            <PropertyRef Name="value2" />
+            <PropertyRef Name="PointAccuracy" />
+            <PropertyRef Name="variableID" />
+            <PropertyRef Name="variableName" />
+            <PropertyRef Name="machineID" />
+            <PropertyRef Name="descriptionMachine" />
+            <PropertyRef Name="machineAccuracy" />
+            <PropertyRef Name="groupID" />
+            <PropertyRef Name="descriptionGroup" />
+          </Key>
+          <Property Name="time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="pointID" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="X" Type="Double" Nullable="false" />
+          <Property Name="Y" Type="Double" Nullable="false" />
+          <Property Name="value1" Type="Double" Nullable="false" />
+          <Property Name="value2" Type="Double" Nullable="false" />
+          <Property Name="PointAccuracy" Type="Double" Nullable="false" />
+          <Property Name="variableID" Type="Int32" Nullable="false" />
+          <Property Name="variableName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="machineID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="descriptionMachine" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="machineAccuracy" Type="Double" Nullable="false" />
+          <Property Name="groupID" Type="Int32" Nullable="false" />
+          <Property Name="descriptionGroup" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Measureme__group__1A14E395">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="groupID" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="groupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measureme__machi__1920BF5C">
+          <End Role="Machines" Type="Self.Machines" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Machines">
+              <PropertyRef Name="machineID" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="machineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measurement__182C9B23">
+          <End Role="Points" Type="Self.Points" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Points">
+              <PropertyRef Name="pointID" />
+              <PropertyRef Name="X" />
+              <PropertyRef Name="Y" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="pointID" />
+              <PropertyRef Name="X" />
+              <PropertyRef Name="Y" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Points__variable__164452B1">
+          <End Role="Variables" Type="Self.Variables" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Points" Type="Self.Points" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Variables">
+              <PropertyRef Name="variableID" />
+            </Principal>
+            <Dependent Role="Points">
+              <PropertyRef Name="variableID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Groups" EntityType="Self.Groups" />
+          <EntitySet Name="Machines" EntityType="Self.Machines" />
+          <EntitySet Name="Points" EntityType="Self.Points" />
+          <EntitySet Name="Variables" EntityType="Self.Variables" />
+          <EntitySet Name="Measurement" EntityType="Self.Measurement" />
+          <EntitySet Name="Multiple_data_select" EntityType="Self.Multiple_data_select" />
+          <AssociationSet Name="FK__Measureme__group__1A14E395" Association="Self.FK__Measureme__group__1A14E395">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Measurement" EntitySet="Measurement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measureme__machi__1920BF5C" Association="Self.FK__Measureme__machi__1920BF5C">
+            <End Role="Machines" EntitySet="Machines" />
+            <End Role="Measurement" EntitySet="Measurement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measurement__182C9B23" Association="Self.FK__Measurement__182C9B23">
+            <End Role="Points" EntitySet="Points" />
+            <End Role="Measurement" EntitySet="Measurement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Points__variable__164452B1" Association="Self.FK__Points__variable__164452B1">
+            <End Role="Variables" EntitySet="Variables" />
+            <End Role="Points" EntitySet="Points" />
+          </AssociationSet>
+          <FunctionImport Name="savefile">
+            <Parameter Name="filePath" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseContext">
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="DatabaseModel.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="groupID" ColumnName="groupID" />
+                <ScalarProperty Name="descriptionGroup" ColumnName="descriptionGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Machines">
+            <EntityTypeMapping TypeName="DatabaseModel.Machines">
+              <MappingFragment StoreEntitySet="Machines">
+                <ScalarProperty Name="machineID" ColumnName="machineID" />
+                <ScalarProperty Name="descriptionMachine" ColumnName="descriptionMachine" />
+                <ScalarProperty Name="machineAccuracy" ColumnName="machineAccuracy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Points">
+            <EntityTypeMapping TypeName="DatabaseModel.Points">
+              <MappingFragment StoreEntitySet="Points">
+                <ScalarProperty Name="pointID" ColumnName="pointID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="value1" ColumnName="value1" />
+                <ScalarProperty Name="value2" ColumnName="value2" />
+                <ScalarProperty Name="accuracy" ColumnName="accuracy" />
+                <ScalarProperty Name="variableID" ColumnName="variableID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Variables">
+            <EntityTypeMapping TypeName="DatabaseModel.Variables">
+              <MappingFragment StoreEntitySet="Variables">
+                <ScalarProperty Name="variableID" ColumnName="variableID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Measurement">
+            <EntityTypeMapping TypeName="DatabaseModel.Measurement">
+              <MappingFragment StoreEntitySet="Measurement">
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="pointID" ColumnName="pointID" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="machineID" ColumnName="machineID" />
+                <ScalarProperty Name="groupID" ColumnName="groupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Multiple_data_select">
+            <EntityTypeMapping TypeName="DatabaseModel.Multiple_data_select">
+              <MappingFragment StoreEntitySet="Multiple_data_select">
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="pointID" ColumnName="pointID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="value1" ColumnName="value1" />
+                <ScalarProperty Name="value2" ColumnName="value2" />
+                <ScalarProperty Name="PointAccuracy" ColumnName="PointAccuracy" />
+                <ScalarProperty Name="variableID" ColumnName="variableID" />
+                <ScalarProperty Name="variableName" ColumnName="variableName" />
+                <ScalarProperty Name="machineID" ColumnName="machineID" />
+                <ScalarProperty Name="descriptionMachine" ColumnName="descriptionMachine" />
+                <ScalarProperty Name="machineAccuracy" ColumnName="machineAccuracy" />
+                <ScalarProperty Name="groupID" ColumnName="groupID" />
+                <ScalarProperty Name="descriptionGroup" ColumnName="descriptionGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="savefile" FunctionName="DatabaseModel.Store.savefile" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

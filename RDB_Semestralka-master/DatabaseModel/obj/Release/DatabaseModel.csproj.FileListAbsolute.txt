@@ -1,0 +1,10 @@
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\DatabaseModel\bin\Release\DatabaseModel.dll.config
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\DatabaseModel\bin\Release\DatabaseModel.dll
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\DatabaseModel\bin\Release\DatabaseModel.pdb
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\DatabaseModel\bin\Release\EntityFramework.dll
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\DatabaseModel\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\DatabaseModel\bin\Release\EntityFramework.xml
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\DatabaseModel\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\DatabaseModel\obj\Release\DatabaseModel.csprojResolveAssemblyReference.cache
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\DatabaseModel\obj\Release\DatabaseModel.dll
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\DatabaseModel\obj\Release\DatabaseModel.pdb

@@ -1,0 +1,12 @@
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\bin\x64\Release\WindowsForms.exe.config
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\bin\x64\Release\WindowsForms.exe
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\bin\x64\Release\DatabaseModel.dll
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\bin\x64\Release\EntityFramework.dll
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\bin\x64\Release\EntityFramework.SqlServer.dll
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\bin\x64\Release\DatabaseModel.pdb
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\bin\x64\Release\EntityFramework.xml
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\bin\x64\Release\EntityFramework.SqlServer.xml
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\obj\x64\Release\WindowsForms.Form1.resources
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\obj\x64\Release\WindowsForms.Properties.Resources.resources
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\obj\x64\Release\WindowsForms.csproj.GenerateResource.Cache
+C:\Users\Robin\Documents\GitHub\RDB_Semestralka\WindowsForms\obj\x64\Release\WindowsForms.exe

@@ -1,0 +1,10 @@
+c:\users\vojtěch\documents\visual studio 2013\Projects\RDBsemestralka\Databasemodel\bin\Debug\Databasemodel.dll.config
+c:\users\vojtěch\documents\visual studio 2013\Projects\RDBsemestralka\Databasemodel\bin\Debug\Databasemodel.dll
+c:\users\vojtěch\documents\visual studio 2013\Projects\RDBsemestralka\Databasemodel\bin\Debug\Databasemodel.pdb
+c:\users\vojtěch\documents\visual studio 2013\Projects\RDBsemestralka\Databasemodel\bin\Debug\EntityFramework.dll
+c:\users\vojtěch\documents\visual studio 2013\Projects\RDBsemestralka\Databasemodel\bin\Debug\EntityFramework.SqlServer.dll
+c:\users\vojtěch\documents\visual studio 2013\Projects\RDBsemestralka\Databasemodel\bin\Debug\EntityFramework.xml
+c:\users\vojtěch\documents\visual studio 2013\Projects\RDBsemestralka\Databasemodel\bin\Debug\EntityFramework.SqlServer.xml
+c:\users\vojtěch\documents\visual studio 2013\Projects\RDBsemestralka\Databasemodel\obj\Debug\Databasemodel.csprojResolveAssemblyReference.cache
+c:\users\vojtěch\documents\visual studio 2013\Projects\RDBsemestralka\Databasemodel\obj\Debug\Databasemodel.dll
+c:\users\vojtěch\documents\visual studio 2013\Projects\RDBsemestralka\Databasemodel\obj\Debug\Databasemodel.pdb

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseContext">
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="DatabaseModel.Groups">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="groupID" ColumnName="groupID" />
+          <ScalarProperty Name="descriptionGroup" ColumnName="descriptionGroup" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Machines">
+      <EntityTypeMapping TypeName="DatabaseModel.Machines">
+        <MappingFragment StoreEntitySet="Machines">
+          <ScalarProperty Name="machineID" ColumnName="machineID" />
+          <ScalarProperty Name="descriptionMachine" ColumnName="descriptionMachine" />
+          <ScalarProperty Name="machineAccuracy" ColumnName="machineAccuracy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Points">
+      <EntityTypeMapping TypeName="DatabaseModel.Points">
+        <MappingFragment StoreEntitySet="Points">
+          <ScalarProperty Name="pointID" ColumnName="pointID" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="X" ColumnName="X" />
+          <ScalarProperty Name="Y" ColumnName="Y" />
+          <ScalarProperty Name="value1" ColumnName="value1" />
+          <ScalarProperty Name="value2" ColumnName="value2" />
+          <ScalarProperty Name="accuracy" ColumnName="accuracy" />
+          <ScalarProperty Name="variableID" ColumnName="variableID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Variables">
+      <EntityTypeMapping TypeName="DatabaseModel.Variables">
+        <MappingFragment StoreEntitySet="Variables">
+          <ScalarProperty Name="variableID" ColumnName="variableID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Measurement">
+      <EntityTypeMapping TypeName="DatabaseModel.Measurement">
+        <MappingFragment StoreEntitySet="Measurement">
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="pointID" ColumnName="pointID" />
+          <ScalarProperty Name="X" ColumnName="X" />
+          <ScalarProperty Name="Y" ColumnName="Y" />
+          <ScalarProperty Name="machineID" ColumnName="machineID" />
+          <ScalarProperty Name="groupID" ColumnName="groupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Multiple_data_select">
+      <EntityTypeMapping TypeName="DatabaseModel.Multiple_data_select">
+        <MappingFragment StoreEntitySet="Multiple_data_select">
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="pointID" ColumnName="pointID" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="X" ColumnName="X" />
+          <ScalarProperty Name="Y" ColumnName="Y" />
+          <ScalarProperty Name="value1" ColumnName="value1" />
+          <ScalarProperty Name="value2" ColumnName="value2" />
+          <ScalarProperty Name="PointAccuracy" ColumnName="PointAccuracy" />
+          <ScalarProperty Name="variableID" ColumnName="variableID" />
+          <ScalarProperty Name="variableName" ColumnName="variableName" />
+          <ScalarProperty Name="machineID" ColumnName="machineID" />
+          <ScalarProperty Name="descriptionMachine" ColumnName="descriptionMachine" />
+          <ScalarProperty Name="machineAccuracy" ColumnName="machineAccuracy" />
+          <ScalarProperty Name="groupID" ColumnName="groupID" />
+          <ScalarProperty Name="descriptionGroup" ColumnName="descriptionGroup" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="savefile" FunctionName="DatabaseModel.Store.savefile" />
+  </EntityContainerMapping>
+</Mapping>
