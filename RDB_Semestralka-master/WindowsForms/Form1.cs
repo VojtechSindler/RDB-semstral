@@ -269,12 +269,23 @@ namespace WindowsForms
                 sql.Add(" descriptionGroup LIKE('%" + textBox1.Text + "%')");
             }
 
+            DateTime date1 = dateTimePicker1.Value.Date;
+            DateTime dt2 = dateTimePicker2.Value.Date;
+            DateTime date2 = new DateTime(dt2.Year, dt2.Month, dt2.Day, 23, 59, 59);
+            var data = db.searchByDate(date1, date2);
+            
+            if (data != null)
+            {
+                sql.Add(" [time] BETWEEN '" + date1.ToString("MM/dd/yyyy HH:mm:ss") + "' AND '" + date2.ToString("MM/dd/yyyy HH:mm:ss") + "'");
+            }
+
             for (int i = 0; i < sql.Count; i++)
             {
                 sb.Append(sql[i]);
                 if (i < sql.Count - 1)
                     sb.Append(" AND");
             }
+            
             multiple_data_selectBindingSource.DataSource = db.search(sb.ToString());
             this.sql_ = sb.ToString();
         }
@@ -373,7 +384,7 @@ namespace WindowsForms
         * Export souboru z databáze
         ***********************************************************************************************************************/
         #region export
-        private void exportovatCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void exportovatCSVToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
             var querry = db.search(this.sql_.ToString()).ToList();//context.Multiple_data_select.SqlQuery(this.sql_.ToString()).ToList();
@@ -405,18 +416,31 @@ namespace WindowsForms
                         sb.Append(querry[i].groupID);sb.Append(";");
                         sb.Append(querry[i].descriptionGroup);sb.Append("\n");
 
-                        WriteToCSV(sb.ToString(), w);
+                        await WriteToCSV(sb.ToString(), w);
                         toolStripStatusLabel1.Text = "Úspěšně vyexportováno.";
                     }
                 }
             }
             
         }
-        
-        private void WriteToCSV(string line, TextWriter w)
+
+        private async Task WriteToCSV(string line, TextWriter w)
         {
-            toolStripStatusLabel1.Text = "Zapisuji do souboru.";
-            w.Write(line);
+            toolStripStatusLabel1.Text = "Export do souboru soubor...";
+            bool result = await WriteToCSV_(line, w);
+            toolStripStatusLabel1.Text = "";
+
+        }
+
+        private Task<bool> WriteToCSV_(string line, TextWriter w)
+        {
+              return Task.Run(() =>
+            {
+                toolStripStatusLabel1.Text = "Zapisuji do souboru.";
+                w.Write(line);
+                GC.Collect();
+            return true;
+            });
         }
 
         private void ukončitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -468,6 +492,9 @@ namespace WindowsForms
                     toolStripStatusLabel2.Text = "Filtrováno podle názvu skupiny. Vyhledaný termín: " + searchText;
                     string  sql = " DELETE FROM Groups WHERE descriptionGroup LIKE('%" + textBox1.Text + "%')";
                     db.delete(sql);
+                    
+                    toolStripStatusLabel2.Text = "Zobrazeno 50 záznamů z celkových " + db.countRows().ToString();
+                    multiple_data_selectBindingSource.DataSource = paginator.firstPage();
                 }
                 else
                 {
@@ -487,7 +514,10 @@ namespace WindowsForms
                 {
                     toolStripStatusLabel2.Text = "Odstanovaání skupiny: " + searchText;
                  string sql = " DELETE FROM Machines WHERE machineID LIKE('%" + textBox1.Text + "%')";
-                 db.delete(sql);
+                 
+                 db.delete(sql); 
+                 toolStripStatusLabel2.Text = "Zobrazeno 50 záznamů z celkových " + db.countRows().ToString();
+                 multiple_data_selectBindingSource.DataSource = paginator.firstPage();
                 }
                 else
                 {
@@ -511,6 +541,9 @@ namespace WindowsForms
                     
                     toolStripStatusLabel2.Text = "Mazani souřadnice X = " + textBox4.Text + " Y = " + textBox5.Text;
                     db.delete(sql);
+
+                    toolStripStatusLabel2.Text = "Zobrazeno 50 záznamů z celkových " + db.countRows().ToString();
+                    multiple_data_selectBindingSource.DataSource = paginator.firstPage();
                 
                 }
                 else
@@ -570,6 +603,9 @@ namespace WindowsForms
                 toolStripStatusLabel2.Text = "Mazání měření z období " + date1.ToString("MM/dd/yyyy HH:mm:ss") + " - " + date2.ToString("MM/dd/yyyy HH:mm:ss");
                 string sql = "Delete FROM Measurement WHERE [time] BETWEEN '" + date1.ToString("MM/dd/yyyy HH:mm:ss") + "' AND '" + date2.ToString("MM/dd/yyyy HH:mm:ss") + "'";
                 db.delete(sql);
+
+                toolStripStatusLabel2.Text = "Zobrazeno 50 záznamů z celkových " + db.countRows().ToString();
+                multiple_data_selectBindingSource.DataSource = paginator.firstPage();
             }
             else
             {
