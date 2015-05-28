@@ -28,6 +28,7 @@ namespace DatabaseModel
         }
     
         public virtual DbSet<Groups> Groups { get; set; }
+        public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Machines> Machines { get; set; }
         public virtual DbSet<Points> Points { get; set; }
         public virtual DbSet<Variables> Variables { get; set; }

@@ -12,6 +12,13 @@
           <Property Name="groupID" Type="int" Nullable="false" />
           <Property Name="descriptionGroup" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="Operation" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="Machines">
           <Key>
             <PropertyRef Name="machineID" />
@@ -26,23 +33,23 @@ warning 6002: The table/view 'Semestral_Work.dbo.Measurement' does not have a pr
           <Key>
             <PropertyRef Name="time" />
             <PropertyRef Name="pointID" />
-            <PropertyRef Name="X" />
-            <PropertyRef Name="Y" />
+            <PropertyRef Name="value1" />
+            <PropertyRef Name="value2" />
             <PropertyRef Name="machineID" />
             <PropertyRef Name="groupID" />
           </Key>
           <Property Name="time" Type="datetime" Nullable="false" />
           <Property Name="pointID" Type="int" Nullable="false" />
-          <Property Name="X" Type="float" Nullable="false" />
-          <Property Name="Y" Type="float" Nullable="false" />
+          <Property Name="value1" Type="float" Nullable="false" />
+          <Property Name="value2" Type="float" Nullable="false" />
           <Property Name="machineID" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="groupID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Points">
           <Key>
             <PropertyRef Name="pointID" />
-            <PropertyRef Name="X" />
-            <PropertyRef Name="Y" />
+            <PropertyRef Name="value1" />
+            <PropertyRef Name="value2" />
           </Key>
           <Property Name="pointID" Type="int" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="20" Nullable="false" />
@@ -96,7 +103,7 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
           <Property Name="groupID" Type="int" Nullable="false" />
           <Property Name="descriptionGroup" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Measureme__group__02FC7413">
+        <Association Name="FK__Measureme__group__14270015">
           <End Role="Groups" Type="Self.Groups" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -110,7 +117,7 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Measureme__machi__02084FDA">
+        <Association Name="FK__Measureme__machi__1332DBDC">
           <End Role="Machines" Type="Self.Machines" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -124,7 +131,7 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Measurement__01142BA1">
+        <Association Name="FK__Measurement__123EB7A3">
           <End Role="Points" Type="Self.Points" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -132,17 +139,17 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
           <ReferentialConstraint>
             <Principal Role="Points">
               <PropertyRef Name="pointID" />
-              <PropertyRef Name="X" />
-              <PropertyRef Name="Y" />
+              <PropertyRef Name="value1" />
+              <PropertyRef Name="value2" />
             </Principal>
             <Dependent Role="Measurement">
               <PropertyRef Name="pointID" />
-              <PropertyRef Name="X" />
-              <PropertyRef Name="Y" />
+              <PropertyRef Name="value1" />
+              <PropertyRef Name="value2" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Points__variable__7F2BE32F">
+        <Association Name="FK__Points__variable__10566F31">
           <End Role="Variables" Type="Self.Variables" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -161,6 +168,7 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
         </Function>
         <EntityContainer Name="DatabaseModelStoreContainer">
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Machines" EntityType="Self.Machines" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Points" EntityType="Self.Points" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Variables" EntityType="Self.Variables" Schema="dbo" store:Type="Tables" />
@@ -168,8 +176,8 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
             <DefiningQuery>SELECT 
     [Measurement].[time] AS [time], 
     [Measurement].[pointID] AS [pointID], 
-    [Measurement].[X] AS [X], 
-    [Measurement].[Y] AS [Y], 
+    [Measurement].[value1] AS [value1], 
+    [Measurement].[value2] AS [value2], 
     [Measurement].[machineID] AS [machineID], 
     [Measurement].[groupID] AS [groupID]
     FROM [dbo].[Measurement] AS [Measurement]</DefiningQuery>
@@ -193,19 +201,19 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
     [Multiple_data_select].[descriptionGroup] AS [descriptionGroup]
     FROM [dbo].[Multiple_data_select] AS [Multiple_data_select]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Measureme__group__02FC7413" Association="Self.FK__Measureme__group__02FC7413">
+          <AssociationSet Name="FK__Measureme__group__14270015" Association="Self.FK__Measureme__group__14270015">
             <End Role="Groups" EntitySet="Groups" />
             <End Role="Measurement" EntitySet="Measurement" />
           </AssociationSet>
-          <AssociationSet Name="FK__Measureme__machi__02084FDA" Association="Self.FK__Measureme__machi__02084FDA">
+          <AssociationSet Name="FK__Measureme__machi__1332DBDC" Association="Self.FK__Measureme__machi__1332DBDC">
             <End Role="Machines" EntitySet="Machines" />
             <End Role="Measurement" EntitySet="Measurement" />
           </AssociationSet>
-          <AssociationSet Name="FK__Measurement__01142BA1" Association="Self.FK__Measurement__01142BA1">
+          <AssociationSet Name="FK__Measurement__123EB7A3" Association="Self.FK__Measurement__123EB7A3">
             <End Role="Points" EntitySet="Points" />
             <End Role="Measurement" EntitySet="Measurement" />
           </AssociationSet>
-          <AssociationSet Name="FK__Points__variable__7F2BE32F" Association="Self.FK__Points__variable__7F2BE32F">
+          <AssociationSet Name="FK__Points__variable__10566F31" Association="Self.FK__Points__variable__10566F31">
             <End Role="Variables" EntitySet="Variables" />
             <End Role="Points" EntitySet="Points" />
           </AssociationSet>
@@ -221,7 +229,14 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
           </Key>
           <Property Name="groupID" Type="Int32" Nullable="false" />
           <Property Name="descriptionGroup" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Measurement" Relationship="Self.FK__Measureme__group__02FC7413" FromRole="Groups" ToRole="Measurement" />
+          <NavigationProperty Name="Measurement" Relationship="Self.FK__Measureme__group__14270015" FromRole="Groups" ToRole="Measurement" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Operation" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Machines">
           <Key>
@@ -230,13 +245,13 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
           <Property Name="machineID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="descriptionMachine" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="machineAccuracy" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Measurement" Relationship="Self.FK__Measureme__machi__02084FDA" FromRole="Machines" ToRole="Measurement" />
+          <NavigationProperty Name="Measurement" Relationship="Self.FK__Measureme__machi__1332DBDC" FromRole="Machines" ToRole="Measurement" />
         </EntityType>
         <EntityType Name="Points">
           <Key>
             <PropertyRef Name="pointID" />
-            <PropertyRef Name="X" />
-            <PropertyRef Name="Y" />
+            <PropertyRef Name="value1" />
+            <PropertyRef Name="value2" />
           </Key>
           <Property Name="pointID" Type="Int32" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
@@ -246,8 +261,8 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
           <Property Name="value2" Type="Double" Nullable="false" />
           <Property Name="accuracy" Type="Double" Nullable="false" />
           <Property Name="variableID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Measurement" Relationship="Self.FK__Measurement__01142BA1" FromRole="Points" ToRole="Measurement" />
-          <NavigationProperty Name="Variables" Relationship="Self.FK__Points__variable__7F2BE32F" FromRole="Points" ToRole="Variables" />
+          <NavigationProperty Name="Measurement" Relationship="Self.FK__Measurement__123EB7A3" FromRole="Points" ToRole="Measurement" />
+          <NavigationProperty Name="Variables" Relationship="Self.FK__Points__variable__10566F31" FromRole="Points" ToRole="Variables" />
         </EntityType>
         <EntityType Name="Variables">
           <Key>
@@ -255,26 +270,26 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
           </Key>
           <Property Name="variableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Points" Relationship="Self.FK__Points__variable__7F2BE32F" FromRole="Variables" ToRole="Points" />
+          <NavigationProperty Name="Points" Relationship="Self.FK__Points__variable__10566F31" FromRole="Variables" ToRole="Points" />
         </EntityType>
         <EntityType Name="Measurement">
           <Key>
             <PropertyRef Name="time" />
             <PropertyRef Name="pointID" />
-            <PropertyRef Name="X" />
-            <PropertyRef Name="Y" />
+            <PropertyRef Name="value1" />
+            <PropertyRef Name="value2" />
             <PropertyRef Name="machineID" />
             <PropertyRef Name="groupID" />
           </Key>
           <Property Name="time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="pointID" Type="Int32" Nullable="false" />
-          <Property Name="X" Type="Double" Nullable="false" />
-          <Property Name="Y" Type="Double" Nullable="false" />
+          <Property Name="value1" Type="Double" Nullable="false" />
+          <Property Name="value2" Type="Double" Nullable="false" />
           <Property Name="machineID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="groupID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Groups" Relationship="Self.FK__Measureme__group__02FC7413" FromRole="Measurement" ToRole="Groups" />
-          <NavigationProperty Name="Machines" Relationship="Self.FK__Measureme__machi__02084FDA" FromRole="Measurement" ToRole="Machines" />
-          <NavigationProperty Name="Points" Relationship="Self.FK__Measurement__01142BA1" FromRole="Measurement" ToRole="Points" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK__Measureme__group__14270015" FromRole="Measurement" ToRole="Groups" />
+          <NavigationProperty Name="Machines" Relationship="Self.FK__Measureme__machi__1332DBDC" FromRole="Measurement" ToRole="Machines" />
+          <NavigationProperty Name="Points" Relationship="Self.FK__Measurement__123EB7A3" FromRole="Measurement" ToRole="Points" />
         </EntityType>
         <EntityType Name="Multiple_data_select">
           <Key>
@@ -310,7 +325,7 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
           <Property Name="groupID" Type="Int32" Nullable="false" />
           <Property Name="descriptionGroup" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Measureme__group__02FC7413">
+        <Association Name="FK__Measureme__group__14270015">
           <End Role="Groups" Type="Self.Groups" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -324,7 +339,7 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Measureme__machi__02084FDA">
+        <Association Name="FK__Measureme__machi__1332DBDC">
           <End Role="Machines" Type="Self.Machines" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -338,7 +353,7 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Measurement__01142BA1">
+        <Association Name="FK__Measurement__123EB7A3">
           <End Role="Points" Type="Self.Points" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -346,17 +361,17 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
           <ReferentialConstraint>
             <Principal Role="Points">
               <PropertyRef Name="pointID" />
-              <PropertyRef Name="X" />
-              <PropertyRef Name="Y" />
+              <PropertyRef Name="value1" />
+              <PropertyRef Name="value2" />
             </Principal>
             <Dependent Role="Measurement">
               <PropertyRef Name="pointID" />
-              <PropertyRef Name="X" />
-              <PropertyRef Name="Y" />
+              <PropertyRef Name="value1" />
+              <PropertyRef Name="value2" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Points__variable__7F2BE32F">
+        <Association Name="FK__Points__variable__10566F31">
           <End Role="Variables" Type="Self.Variables" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -372,24 +387,25 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
         </Association>
         <EntityContainer Name="DatabaseContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Groups" EntityType="Self.Groups" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" />
           <EntitySet Name="Machines" EntityType="Self.Machines" />
           <EntitySet Name="Points" EntityType="Self.Points" />
           <EntitySet Name="Variables" EntityType="Self.Variables" />
           <EntitySet Name="Measurement" EntityType="Self.Measurement" />
           <EntitySet Name="Multiple_data_select" EntityType="Self.Multiple_data_select" />
-          <AssociationSet Name="FK__Measureme__group__02FC7413" Association="Self.FK__Measureme__group__02FC7413">
+          <AssociationSet Name="FK__Measureme__group__14270015" Association="Self.FK__Measureme__group__14270015">
             <End Role="Groups" EntitySet="Groups" />
             <End Role="Measurement" EntitySet="Measurement" />
           </AssociationSet>
-          <AssociationSet Name="FK__Measureme__machi__02084FDA" Association="Self.FK__Measureme__machi__02084FDA">
+          <AssociationSet Name="FK__Measureme__machi__1332DBDC" Association="Self.FK__Measureme__machi__1332DBDC">
             <End Role="Machines" EntitySet="Machines" />
             <End Role="Measurement" EntitySet="Measurement" />
           </AssociationSet>
-          <AssociationSet Name="FK__Measurement__01142BA1" Association="Self.FK__Measurement__01142BA1">
+          <AssociationSet Name="FK__Measurement__123EB7A3" Association="Self.FK__Measurement__123EB7A3">
             <End Role="Points" EntitySet="Points" />
             <End Role="Measurement" EntitySet="Measurement" />
           </AssociationSet>
-          <AssociationSet Name="FK__Points__variable__7F2BE32F" Association="Self.FK__Points__variable__7F2BE32F">
+          <AssociationSet Name="FK__Points__variable__10566F31" Association="Self.FK__Points__variable__10566F31">
             <End Role="Variables" EntitySet="Variables" />
             <End Role="Points" EntitySet="Points" />
           </AssociationSet>
@@ -408,6 +424,14 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
               <MappingFragment StoreEntitySet="Groups">
                 <ScalarProperty Name="groupID" ColumnName="groupID" />
                 <ScalarProperty Name="descriptionGroup" ColumnName="descriptionGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="DatabaseModel.Logs">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="Operation" ColumnName="Operation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -447,8 +471,8 @@ warning 6002: The table/view 'Semestral_Work.dbo.Multiple_data_select' does not 
               <MappingFragment StoreEntitySet="Measurement">
                 <ScalarProperty Name="time" ColumnName="time" />
                 <ScalarProperty Name="pointID" ColumnName="pointID" />
-                <ScalarProperty Name="X" ColumnName="X" />
-                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="value1" ColumnName="value1" />
+                <ScalarProperty Name="value2" ColumnName="value2" />
                 <ScalarProperty Name="machineID" ColumnName="machineID" />
                 <ScalarProperty Name="groupID" ColumnName="groupID" />
               </MappingFragment>

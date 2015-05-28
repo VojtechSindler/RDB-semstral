@@ -69,6 +69,11 @@
     <Compile Include="Paginator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Semestral_WorkDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Semestral_WorkDataSet.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -82,13 +87,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\DatabaseModel.DatabaseContext.datasource" />
-    <None Include="Properties\DataSources\DatabaseModel.Groups.datasource" />
-    <None Include="Properties\DataSources\DatabaseModel.Machines.datasource" />
-    <None Include="Properties\DataSources\DatabaseModel.Measurement.datasource" />
-    <None Include="Properties\DataSources\DatabaseModel.Multiple_data_select.datasource" />
-    <None Include="Properties\DataSources\DatabaseModel.Points.datasource" />
-    <None Include="Properties\DataSources\DatabaseModel.Variables.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -98,6 +96,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Semestral_WorkDataSet.xsc">
+      <DependentUpon>Semestral_WorkDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Semestral_WorkDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Semestral_WorkDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Semestral_WorkDataSet.xss">
+      <DependentUpon>Semestral_WorkDataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

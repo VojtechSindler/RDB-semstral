@@ -16,8 +16,8 @@ namespace DatabaseModel
     {
         public System.DateTime time { get; set; }
         public int pointID { get; set; }
-        public double X { get; set; }
-        public double Y { get; set; }
+        public double value1 { get; set; }
+        public double value2 { get; set; }
         public string machineID { get; set; }
         public int groupID { get; set; }
     
