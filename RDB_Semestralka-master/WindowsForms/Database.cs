@@ -327,5 +327,26 @@ namespace WindowsForms
                 return null;
             }
         }
+
+        public List<DatabaseModel.Multiple_data_select> delete(string SQLquerry)
+        {
+            try
+            {
+                var querry = context.Multiple_data_select.SqlQuery(SQLquerry).Skip(0).Take(1000);
+                if (querry.Any())
+                {
+                    return querry.ToList();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return null;
+            }
+        }
     }
 }

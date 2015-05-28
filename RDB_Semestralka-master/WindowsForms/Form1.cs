@@ -46,10 +46,9 @@ namespace WindowsForms
             
             toolStripStatusLabel2.Text = "Zobrazeno 50 záznamů z celkových " + db.countRows().ToString();
             multiple_data_selectBindingSource.DataSource = paginator.firstPage();
-}
-        /***********************************************************************************************************************
-         *Načíst všechno
-         ***********************************************************************************************************************/
+        
+        }
+        #region select
         private void button8_Click(object sender, EventArgs e)
         {
             specificSearch();
@@ -57,6 +56,7 @@ namespace WindowsForms
         /***********************************************************************************************************************
          *Vyhledávání podle skupiny
          ***********************************************************************************************************************/
+        
         private void button1_Click(object sender, EventArgs e)
         {
             string searchText = this.textBox1.Text;
@@ -278,7 +278,9 @@ namespace WindowsForms
             multiple_data_selectBindingSource.DataSource = db.search(sb.ToString());
             this.sql_ = sb.ToString();
         }
-
+        #endregion
+        
+    #region osetreni vstupu
         /***********************************************************************************************************************
          * Ošetření vstupů
         ***********************************************************************************************************************/
@@ -311,7 +313,10 @@ namespace WindowsForms
                 e.Handled = true;
             }
         }
-        
+
+#endregion
+
+        #region import
         /***********************************************************************************************************************
          * Import souboru do databáze
          ***********************************************************************************************************************/
@@ -363,13 +368,15 @@ namespace WindowsForms
                 return true;
             });
         }
+        #endregion
         /***********************************************************************************************************************
         * Export souboru z databáze
         ***********************************************************************************************************************/
+        #region export
         private void exportovatCSVToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            var querry = context.Multiple_data_select.SqlQuery(this.sql_.ToString()).ToList();
+            var querry = db.search(this.sql_.ToString()).ToList();//context.Multiple_data_select.SqlQuery(this.sql_.ToString()).ToList();
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             saveFileDialog1.Title = "Export do CSV souboru";
@@ -444,6 +451,138 @@ namespace WindowsForms
         {
             multiple_data_selectBindingSource.DataSource = paginator.nextPage();
         }
+
+#endregion
+        /***********************************************************************************************************************
+        * Export souboru z databáze
+        ***********************************************************************************************************************/
+        #region mazani dat
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string searchText = this.textBox1.Text;
+            if (searchText != "")
+            {
+                var data = db.searchGroupName(searchText);
+                if (data != null)
+                {                    
+                    toolStripStatusLabel2.Text = "Filtrováno podle názvu skupiny. Vyhledaný termín: " + searchText;
+                    string  sql = " DELETE FROM Groups WHERE descriptionGroup LIKE('%" + textBox1.Text + "%')";
+                    db.delete(sql);
+                }
+                else
+                {
+                    MessageBox.Show("Nic nenalezeno");
+                }
+                textBox1.Clear();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string searchText = this.textBox1.Text;
+            if (searchText != "")
+            {
+                var data = db.searchGroupName(searchText);
+                if (data != null)
+                {
+                    toolStripStatusLabel2.Text = "Odstanovaání skupiny: " + searchText;
+                 string sql = " DELETE FROM Machines WHERE machineID LIKE('%" + textBox1.Text + "%')";
+                 db.delete(sql);
+                }
+                else
+                {
+                    MessageBox.Show("Nic nenalezeno");
+                }
+                textBox1.Clear();
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+           
+            if (textBox4.Text != "" && textBox5.Text != "")
+            {
+                //podle X a Y
+                string sql = "DELETE FROM Points WHERE (X = " + textBox4.Text + " AND Y = " + textBox5.Text + ")";
+                string statusLabel = "Mazani souřadnic X = " + textBox4.Text + " Y = " + textBox5.Text;
+                var data = db.search(sql);
+                if (data != null)
+                {
+                    
+                    toolStripStatusLabel2.Text = "Mazani souřadnice X = " + textBox4.Text + " Y = " + textBox5.Text;
+                    db.delete(sql);
+                
+                }
+                else
+                {
+                    MessageBox.Show("Nic nenalezeno");
+                }
+                textBox4.Clear();
+                textBox5.Clear();
+            }
+            if (textBox4.Text != "" && textBox5.Text == "")
+            {
+                string x = textBox4.Text;
+                var data = db.search(x);
+                if (data != null)
+                {
+                    string sql = "DELETE FROM Points WHERE X = " + x;
+                    toolStripStatusLabel2.Text = "Mazani souřadnice X = " + x;
+                    db.delete(sql);
+                   
+                }
+                else
+                {
+                    MessageBox.Show("Nic nenalezeno");
+                }                
+                textBox4.Clear();
+            }
+            if (textBox4.Text == "" && textBox5.Text != "")
+            {
+                //podle Y
+                string y = textBox5.Text;
+                var data = db.search(y);
+                if (data != null)
+                {
+                    string sql = "DELETE FROM Points WHERE X = " + y;
+                    toolStripStatusLabel2.Text = "Mazani souřadnice Y = " + y;
+                    db.delete(sql);
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Nic nenalezeno");
+                }    
+                textBox4.Clear();
+            }
+
+        
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            DateTime date1 = dateTimePicker1.Value.Date;
+            DateTime dt2 = dateTimePicker2.Value.Date;
+            DateTime date2 = new DateTime(dt2.Year, dt2.Month, dt2.Day, 23, 59, 59);
+            var data = db.searchByDate(date1, date2);
+            if (data != null)
+            {
+                toolStripStatusLabel2.Text = "Mazání měření z období " + date1.ToString("MM/dd/yyyy HH:mm:ss") + " - " + date2.ToString("MM/dd/yyyy HH:mm:ss");
+                string sql = "Delete FROM Measurement WHERE [time] BETWEEN '" + date1.ToString("MM/dd/yyyy HH:mm:ss") + "' AND '" + date2.ToString("MM/dd/yyyy HH:mm:ss") + "'";
+                db.delete(sql);
+            }
+            else
+            {
+                MessageBox.Show("Nic nenalezeno");
+            }
+        }
+        #endregion
+
+     
+
+       
+
+       
 
 
     }
